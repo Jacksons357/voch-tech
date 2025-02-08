@@ -125,13 +125,23 @@ export default function Index({ colaboradores }) {
       <Head title="Unidade" />
 
       <div className="p-12">
-        <Link
-          href={route('colaboradores.create')}
-          className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
-        >
-          <TiPlus />
-          Criar Um Novo Colaborador
-        </Link>
+        <div className="flex justify-between px-5">
+          <Link
+            href={route('colaboradores.create')}
+            className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
+          >
+            <TiPlus />
+            Criar Um Novo Colaborador
+          </Link>
+
+          <a
+            href="colaboradores/export"
+            className="flex items-center border border-white text-white px-5"
+            target="__blank"
+          >
+            Gerar Relatório
+          </a>
+        </div>
 
         <div
           className="ag-theme-alpine mt-8"

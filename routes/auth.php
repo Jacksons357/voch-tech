@@ -102,5 +102,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/colaboradores/{id}', 'update')->name('colaboradores.update');
 
     Route::delete('/colaboradores/{id}', 'destroy')->name('colaboradores.destroy');
+
+    // Route::get('/relatorios/colaboradores', [ColaboradorController::class, 'relatorio'])->name('relatorios.colaboradores');
+
+    Route::get('/colaboradores/export', [ColaboradorController::class, 'export'])
+      ->name('colaboradores.export');
   });
 });

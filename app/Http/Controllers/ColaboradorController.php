@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ColaboradoresExport;
 use App\Models\Colaborador;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ColaboradorController extends Controller
 {
@@ -22,8 +24,8 @@ class ColaboradorController extends Controller
                     'nome' => $colaborador->nome,
                     'email' => $colaborador->email,
                     'cpf' => $colaborador->cpf,
-                    'unidade' => $colaborador->unidade->nome_fantasia, //FIXME
-                    'created_at' => $colaborador->created_at,
+                    'unidade' => $colaborador->unidade->nome_fantasia,
+                    'created_at' => $colaborador->created_at->format('d/m/Y'),
                 ];
             });
 
@@ -111,5 +113,61 @@ class ColaboradorController extends Controller
 
         return redirect()->route('colaboradores.index')
             ->with('success', 'Colaborador excluído com sucesso.');
+    }
+
+    public function relatorio(Request $request)
+    {
+        $query = Colaborador::with('unidade')->where('user_id', Auth::id());
+
+        if ($request->filled('unidade_id')) {
+            $query->where('unidade_id', $request->unidade_id);
+        }
+
+        if ($request->filled('nome')) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        if ($request->filled('cpf')) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        $colaboradores = $query->get()->map(function ($colaborador) {
+            return [
+                'id' => $colaborador->id,
+                'nome' => $colaborador->nome,
+                'email' => $colaborador->email,
+                'cpf' => $colaborador->cpf,
+                'unidade' => $colaborador->unidade->nome_fantasia,
+                'created_at' => $colaborador->created_at,
+            ];
+        });
+
+        $unidades = Unidade::where('user_id', Auth::id())->get();
+
+        return Inertia::render('Relatorios/Colaboradores', [
+            'colaboradores' => $colaboradores,
+            'unidades' => $unidades,
+            'filtros' => $request->all()
+        ]);
+    }
+
+    public function export(Request $request)
+    {
+        $query = Colaborador::with('unidade')->where('user_id', Auth::id());
+
+        if ($request->has('unidade_id')) {
+            $query->where('unidade_id', $request->unidade_id);
+        }
+        if ($request->has('nome')) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        $colaboradores = $query->get();
+
+        return Excel::download(new ColaboradoresExport($colaboradores), 'colaboradores.xlsx');
     }
 }

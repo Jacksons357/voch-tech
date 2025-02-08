@@ -9,7 +9,7 @@ export default function Welcome({ auth }) {
           <div className="text-black">Logo</div>
           <nav className="flex gap-4  ">
             {auth.user ? (
-              <Link href={route('dashboard')} className="">
+              <Link href={route('dashboard.index')} className="">
                 Dashboard
               </Link>
             ) : (

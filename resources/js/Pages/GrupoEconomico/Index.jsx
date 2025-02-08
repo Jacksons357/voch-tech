@@ -31,6 +31,7 @@ export default function Index({ gruposEconomicos }) {
     }))
   )
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const columnDefs = useMemo(
     () => [
       {

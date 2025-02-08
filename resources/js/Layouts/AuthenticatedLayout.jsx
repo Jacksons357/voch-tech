@@ -48,6 +48,12 @@ export default function AuthenticatedLayout({ header, children }) {
                 >
                   Colaboradores
                 </NavLink>
+                {/* <NavLink
+                  href={route('relatorios.colaboradores')}
+                  active={route().current('relatorios.colaboradores')}
+                >
+                  Relatório Colaboradores
+                </NavLink> */}
               </div>
             </div>
 
