@@ -42,6 +42,12 @@ export default function AuthenticatedLayout({ header, children }) {
                 >
                   Unidades
                 </NavLink>
+                <NavLink
+                  href={route('colaboradores.index')}
+                  active={route().current('colaboradores.index')}
+                >
+                  Colaboradores
+                </NavLink>
               </div>
             </div>
 

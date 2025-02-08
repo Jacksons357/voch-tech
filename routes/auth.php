@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BandeiraController;
+use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\GrupoEconomicoController;
 use App\Http\Controllers\UnidadeController;
 use Illuminate\Support\Facades\Route;
@@ -89,5 +90,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/unidades/{id}', 'update')->name('unidades.update');
 
     Route::delete('/unidades/{id}', 'destroy')->name('unidades.destroy');
+  });
+
+  Route::controller(ColaboradorController::class)->group(function () {
+    Route::get('colaboradores', 'index')->name('colaboradores.index');
+    Route::get('colaboradores/create', 'create')->name('colaboradores.create');
+    Route::post('colaboradores', 'store')->name('colaboradores.store');
+
+    Route::get('/colaboradores/{id}/edit', 'edit')->name('colaboradores.edit');
+    Route::put('/colaboradores/{id}', 'update')->name('colaboradores.update');
+
+    Route::delete('/colaboradores/{id}', 'destroy')->name('colaboradores.destroy');
   });
 });
