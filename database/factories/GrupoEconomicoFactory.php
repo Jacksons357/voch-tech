@@ -19,6 +19,7 @@ class GrupoEconomicoFactory extends Factory
     {
         return [
             'nome' => $this->faker->name(),
+            'user_id' => User::all()->random()->id,
         ];
     }
 }

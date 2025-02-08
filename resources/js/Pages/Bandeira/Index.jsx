@@ -10,24 +10,23 @@ import { FaTrash } from 'react-icons/fa'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
-import 'ag-grid-community/styles/ag-theme-alpine.css'
-
-export default function Index({ gruposEconomicos }) {
+export default function Index({ bandeiras }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
   const handleEdit = id => {
-    const selectedGrupo = gruposEconomicos.find(grupo => grupo.id === id)
-    setSelectedItem(selectedGrupo)
+    const selectedBandeira = bandeiras.find(bandeira => bandeira.id === id)
+    setSelectedItem(selectedBandeira)
     setShowEditModal(true)
   }
 
   const [rowData] = useState(
-    gruposEconomicos.map(grupo => ({
-      nome: grupo.nome,
-      dataCriacao: dayjs(grupo.created_at).format('DD/MM/YYYY'),
-      id: grupo.id,
+    bandeiras.map(bandeira => ({
+      nome: bandeira.nome,
+      grupoEconomico: bandeira.grupoEconomico,
+      dataCriacao: dayjs(bandeira.created_at).format('DD/MM/YYYY'),
+      id: bandeira.id,
     }))
   )
 
@@ -42,6 +41,11 @@ export default function Index({ gruposEconomicos }) {
         headerName: 'Nome',
         field: 'nome',
       },
+      {
+        headerName: 'Grupo Econômico',
+        field: 'grupoEconomico',
+      },
+
       {
         headerName: 'Ações',
         field: 'editar',
@@ -76,7 +80,7 @@ export default function Index({ gruposEconomicos }) {
 
   const handleConfirmDelete = () => {
     if (selectedItem) {
-      router.delete(`/grupos-economicos/${selectedItem.id}`, {
+      router.delete(`/bandeiras/${selectedItem.id}`, {
         onSuccess: () => {
           setShowDeleteModal(false)
           router.visit(window.location.pathname, { replace: true })
@@ -90,7 +94,7 @@ export default function Index({ gruposEconomicos }) {
 
   const handleConfirmEdit = id => {
     console.log('Editing item:', selectedItem.id)
-    router.visit(`/grupos-economicos/${selectedItem.id}/edit`)
+    router.visit(`/bandeiras/${selectedItem.id}/edit`)
     setShowEditModal(false)
   }
 
@@ -103,24 +107,24 @@ export default function Index({ gruposEconomicos }) {
     <AuthenticatedLayout
       header={
         <h2 className="text-xl font-semibold leading-tight text-gray-800">
-          Grupo Economico
+          Bandeiras
         </h2>
       }
     >
-      <Head title="Grupo Economico" />
+      <Head title="Bandeiras" />
 
       <div className="p-12">
         <Link
-          href={route('grupos-economicos.create')}
+          href={route('bandeiras.create')}
           className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
         >
           <TiPlus />
-          Criar Novo Grupo Econômico
+          Criar Uma Nova Bandeira
         </Link>
 
         <div
           className="ag-theme-alpine mt-8"
-          style={{ height: 400, width: '100%' }}
+          style={{ height: 500, width: '100%' }}
         >
           <AgGridReact
             rowData={rowData}

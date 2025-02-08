@@ -44,7 +44,7 @@ export default function Create() {
           </button>
         </form>
         <div className="flex justify-end">
-          <a href="/dashboard" className="">
+          <a href="/grupos-economicos" className="">
             Voltar
           </a>
         </div>

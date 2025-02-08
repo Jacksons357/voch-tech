@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Unidade;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class ColaboradorFactory extends Factory
             'email' => $this->faker->email(),
             'cpf' => $this->faker->numerify('###.###.###-##'),
             'unidade_id' => Unidade::all()->random()->id,
+            'user_id' => User::all()->random()->id,
         ];
     }
 }

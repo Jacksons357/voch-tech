@@ -12,25 +12,29 @@ ModuleRegistry.registerModules([AllCommunityModule])
 
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
-export default function Index({ gruposEconomicos }) {
+export default function Index({ unidades }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
   const handleEdit = id => {
-    const selectedGrupo = gruposEconomicos.find(grupo => grupo.id === id)
+    const selectedGrupo = unidades.find(grupo => grupo.id === id)
     setSelectedItem(selectedGrupo)
     setShowEditModal(true)
   }
 
   const [rowData] = useState(
-    gruposEconomicos.map(grupo => ({
-      nome: grupo.nome,
+    unidades.map(grupo => ({
       dataCriacao: dayjs(grupo.created_at).format('DD/MM/YYYY'),
+      nome_fantasia: grupo.nome_fantasia,
+      bandeira: grupo.bandeira,
+      razao_social: grupo.razao_social,
+      cnpj: grupo.cnpj,
       id: grupo.id,
     }))
   )
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const columnDefs = useMemo(
     () => [
       {
@@ -39,8 +43,20 @@ export default function Index({ gruposEconomicos }) {
         filter: 'agDateColumnFilter',
       },
       {
-        headerName: 'Nome',
-        field: 'nome',
+        headerName: 'Bandeira',
+        field: 'bandeira',
+      },
+      {
+        headerName: 'Nome Fantasia',
+        field: 'nome_fantasia',
+      },
+      {
+        headerName: 'Razão Social',
+        field: 'razao_social',
+      },
+      {
+        headerName: 'CNPJ',
+        field: 'cnpj',
       },
       {
         headerName: 'Ações',
@@ -76,7 +92,7 @@ export default function Index({ gruposEconomicos }) {
 
   const handleConfirmDelete = () => {
     if (selectedItem) {
-      router.delete(`/grupos-economicos/${selectedItem.id}`, {
+      router.delete(`/unidades/${selectedItem.id}`, {
         onSuccess: () => {
           setShowDeleteModal(false)
           router.visit(window.location.pathname, { replace: true })
@@ -89,8 +105,7 @@ export default function Index({ gruposEconomicos }) {
   }
 
   const handleConfirmEdit = id => {
-    console.log('Editing item:', selectedItem.id)
-    router.visit(`/grupos-economicos/${selectedItem.id}/edit`)
+    router.visit(`/unidades/${selectedItem.id}/edit`)
     setShowEditModal(false)
   }
 
@@ -103,19 +118,19 @@ export default function Index({ gruposEconomicos }) {
     <AuthenticatedLayout
       header={
         <h2 className="text-xl font-semibold leading-tight text-gray-800">
-          Grupo Economico
+          Unidade
         </h2>
       }
     >
-      <Head title="Grupo Economico" />
+      <Head title="Unidade" />
 
       <div className="p-12">
         <Link
-          href={route('grupos-economicos.create')}
+          href={route('unidades.create')}
           className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
         >
           <TiPlus />
-          Criar Novo Grupo Econômico
+          Criar Uma Nova Unidade
         </Link>
 
         <div

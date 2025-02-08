@@ -19,11 +19,12 @@ class Bandeira extends Model
         'id',
         'nome',
         'grupo_economico_id',
+        'user_id'
     ];
 
     public function grupoEconomico()
     {
-        return $this->belongsTo((GrupoEconomico::class));
+        return $this->belongsTo(GrupoEconomico::class);
     }
 
     public function unidade()

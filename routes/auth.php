@@ -9,7 +9,9 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\BandeiraController;
 use App\Http\Controllers\GrupoEconomicoController;
+use App\Http\Controllers\UnidadeController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -60,5 +62,32 @@ Route::middleware('auth')->group(function () {
     Route::get('grupos-economicos', 'index')->name('grupos-economicos.index');
     Route::get('grupos-economicos/create', 'create')->name('grupos-economicos.create');
     Route::post('grupos-economicos', 'store')->name('grupos-economicos.store');
+
+    Route::get('/grupos-economicos/{id}/edit', [GrupoEconomicoController::class, 'edit'])->name('grupos-economicos.edit');
+    Route::put('/grupos-economicos/{id}', [GrupoEconomicoController::class, 'update'])->name('grupos-economicos.update');
+
+    Route::delete('/grupos-economicos/{id}', 'destroy')->name('grupos-economicos.destroy');
+  });
+
+  Route::controller(BandeiraController::class)->group(function () {
+    Route::get('bandeiras', 'index')->name('bandeiras.index');
+    Route::get('bandeiras/create', 'create')->name('bandeiras.create');
+    Route::post('bandeiras', 'store')->name('bandeiras.store');
+
+    Route::get('/bandeiras/{id}/edit', 'edit')->name('bandeiras.edit');
+    Route::put('/bandeiras/{id}', 'update')->name('bandeiras.update');
+
+    Route::delete('/bandeiras/{id}', 'destroy')->name('bandeiras.destroy');
+  });
+
+  Route::controller(UnidadeController::class)->group(function () {
+    Route::get('unidades', 'index')->name('unidades.index');
+    Route::get('unidades/create', 'create')->name('unidades.create');
+    Route::post('unidades', 'store')->name('unidades.store');
+
+    Route::get('/unidades/{id}/edit', 'edit')->name('unidades.edit');
+    Route::put('/unidades/{id}', 'update')->name('unidades.update');
+
+    Route::delete('/unidades/{id}', 'destroy')->name('unidades.destroy');
   });
 });

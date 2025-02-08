@@ -17,6 +17,7 @@ class Colaborador extends Model
         'email',
         'cpf',
         'unidade_id',
+        'user_id'
     ];
 
     public function unidade()

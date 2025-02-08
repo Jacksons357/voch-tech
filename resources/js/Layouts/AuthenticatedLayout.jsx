@@ -30,6 +30,18 @@ export default function AuthenticatedLayout({ header, children }) {
                 >
                   Grupo Econômico
                 </NavLink>
+                <NavLink
+                  href={route('bandeiras.index')}
+                  active={route().current('bandeiras.index')}
+                >
+                  Bandeiras
+                </NavLink>
+                <NavLink
+                  href={route('unidades.index')}
+                  active={route().current('unidades.index')}
+                >
+                  Unidades
+                </NavLink>
               </div>
             </div>
 
@@ -50,9 +62,9 @@ export default function AuthenticatedLayout({ header, children }) {
                   </Dropdown.Trigger>
 
                   <Dropdown.Content>
-                    <Dropdown.Link href={route('profile.edit')}>
+                    {/* <Dropdown.Link href={route('profile.edit')}>
                       Perfil
-                    </Dropdown.Link>
+                    </Dropdown.Link> */}
                     <Dropdown.Link
                       href={route('logout')}
                       method="post"

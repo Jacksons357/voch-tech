@@ -17,11 +17,17 @@ class Unidade extends Model
         'razao_social',
         'cnpj',
         'bandeira_id',
+        'user_id'
     ];
 
-    public function bandeiras()
+    public function user()
     {
-        return $this->belongsTo((Bandeira::class));
+        return $this->belongsTo(User::class);
+    }
+
+    public function bandeira()
+    {
+        return $this->belongsTo(Bandeira::class);
     }
 
     public function colaboradores()

@@ -16,8 +16,8 @@ class UserTableSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'John Doe',
-            'email' => 'john@doe.com',
+            'name' => 'Jackson',
+            'email' => 'jackson@teste.com',
             'password' => '12345678'
         ]);
     }

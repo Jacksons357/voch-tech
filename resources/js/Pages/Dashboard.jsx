@@ -1,11 +1,8 @@
-import TextInput from '@/Components/TextInput'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head, Link, useForm } from '@inertiajs/react'
-import { TiPlus } from 'react-icons/ti'
-import Index from './GrupoEconomico/Index'
+import { Head, useForm } from '@inertiajs/react'
 
 export default function Dashboard(props) {
-  const { data, setData, post, processing, errors, reset } = useForm({
+  const { post, reset } = useForm({
     nome: '',
   })
 
