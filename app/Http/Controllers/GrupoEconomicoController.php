@@ -11,7 +11,9 @@ class GrupoEconomicoController extends Controller
 {
     public function index()
     {
-        $gruposEconomicos = GrupoEconomico::where('user_id', Auth::id())->get();
+        $gruposEconomicos = GrupoEconomico::where('user_id', Auth::id())
+            ->withCount('bandeira')
+            ->get();
 
         return Inertia::render('GrupoEconomico/Index', [
             'gruposEconomicos' => $gruposEconomicos

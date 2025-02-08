@@ -1,18 +1,33 @@
+import CardResume from '@/Components/CardResume'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head } from '@inertiajs/react'
+
+const cardData = {
+  'Grupo Economico': {
+    href: '/grupos-economicos',
+    quantidade: 0,
+  },
+  'Bandeiras ': {
+    quantidade: 0,
+    href: '/bandeiras',
+  },
+  'Unidades ': {
+    quantidade: 0,
+    href: '/unidades',
+  },
+  'Colaboradores ': {
+    quantidade: 0,
+    href: '/colaboradores',
+  },
+}
 
 export default function Dashboard(props) {
-  const { post, reset } = useForm({
-    nome: '',
-  })
+  const { gruposEconomicos, bandeiras, unidades, colaboradores } = props.data
 
-  const submit = e => {
-    e.preventDefault()
-
-    post(route('grupos-economicos.store'), {
-      onFinish: () => reset('nome'),
-    })
-  }
+  cardData['Grupo Economico'].quantidade = gruposEconomicos?.length || 0
+  cardData['Bandeiras '].quantidade = bandeiras?.length || 0
+  cardData['Unidades '].quantidade = unidades?.length || 0
+  cardData['Colaboradores '].quantidade = colaboradores?.length || 0
 
   return (
     <AuthenticatedLayout
@@ -24,7 +39,12 @@ export default function Dashboard(props) {
     >
       <Head title="Dashboard" />
 
-      <div>Dashboard</div>
+      <div className="p-12 flex flex-col gap-4 items-center">
+        {/* TODO: Condicional para se não tiver nenhum item a mostrar */}
+        {Object.entries(cardData).map(([nome, data]) => (
+          <CardResume key={nome} nome={nome} {...data} />
+        ))}
+      </div>
     </AuthenticatedLayout>
   )
 }

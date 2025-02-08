@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BandeiraController;
 use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GrupoEconomicoController;
 use App\Http\Controllers\UnidadeController;
 use Illuminate\Support\Facades\Route;

@@ -30,6 +30,7 @@ export default function Index({ bandeiras }) {
     }))
   )
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const columnDefs = useMemo(
     () => [
       {
@@ -51,7 +52,7 @@ export default function Index({ bandeiras }) {
         field: 'editar',
         filter: false,
         cellRenderer: params => (
-          <div className="flex  gap-5 items-end">
+          <div className="flex  gap-2 items-center">
             <button
               className="text-blue-500"
               onClick={() => handleEdit(params.data.id)}
@@ -66,6 +67,13 @@ export default function Index({ bandeiras }) {
             >
               <FaTrash size={23} />{' '}
             </button>
+            <Link
+              className="bg-green-400 rounded-sm px-2 text-white"
+              href="/unidades"
+              type="button"
+            >
+              Unidades
+            </Link>
           </div>
         ),
       },

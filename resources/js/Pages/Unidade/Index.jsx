@@ -63,7 +63,7 @@ export default function Index({ unidades }) {
         field: 'editar',
         filter: false,
         cellRenderer: params => (
-          <div className="flex  gap-5 items-end">
+          <div className="flex  gap-2  items-center">
             <button
               className="text-blue-500"
               onClick={() => handleEdit(params.data.id)}
@@ -78,6 +78,13 @@ export default function Index({ unidades }) {
             >
               <FaTrash size={23} />{' '}
             </button>
+            <Link
+              className="bg-green-400 rounded-sm px-2 text-white"
+              href="/colaboradores"
+              type="button"
+            >
+              Colaboradores
+            </Link>
           </div>
         ),
       },
