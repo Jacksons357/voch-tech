@@ -12,6 +12,8 @@ class BandeiraController extends Controller
 {
     public function index()
     {
+        $grupoEconomico = GrupoEconomico::where('user_id', Auth::id())->get();
+
         $bandeiras = Bandeira::with('grupoEconomico')
             ->where('user_id', Auth::id())
             ->get()
@@ -25,7 +27,8 @@ class BandeiraController extends Controller
             });
 
         return Inertia::render('Bandeira/Index', [
-            'bandeiras' => $bandeiras
+            'bandeiras' => $bandeiras,
+            'grupoEconomico' => $grupoEconomico
         ]);
     }
 

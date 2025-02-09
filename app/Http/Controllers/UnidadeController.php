@@ -12,6 +12,8 @@ class UnidadeController extends Controller
 {
     public function index()
     {
+        $bandeiras = Bandeira::where('user_id', Auth::id())->get();
+
         $unidades = Unidade::with('bandeira')
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
@@ -28,7 +30,8 @@ class UnidadeController extends Controller
             });
 
         return Inertia::render('Unidade/Index', [
-            'unidades' => $unidades
+            'unidades' => $unidades,
+            'bandeiras' => $bandeiras
         ]);
     }
 

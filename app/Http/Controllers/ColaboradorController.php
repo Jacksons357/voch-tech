@@ -14,6 +14,8 @@ class ColaboradorController extends Controller
 {
     public function index()
     {
+        $unidades = Unidade::where('user_id', Auth::id())->get();
+
         $colaboradores = Colaborador::with('unidade')
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
@@ -30,6 +32,7 @@ class ColaboradorController extends Controller
             });
 
         return Inertia::render('Colaborador/Index', [
+            'unidades' => $unidades,
             'colaboradores' => $colaboradores
         ]);
     }

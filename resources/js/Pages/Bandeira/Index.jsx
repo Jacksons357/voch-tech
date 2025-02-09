@@ -7,10 +7,13 @@ import { useMemo, useState } from 'react'
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import { FaEdit } from 'react-icons/fa'
 import { FaTrash } from 'react-icons/fa'
+import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
-export default function Index({ bandeiras }) {
+export default function Index({ bandeiras, grupoEconomico }) {
+  const hasExistGroup = grupoEconomico.some(item => item.nome)
+
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -122,13 +125,26 @@ export default function Index({ bandeiras }) {
       <Head title="Bandeiras" />
 
       <div className="p-12">
-        <Link
-          href={route('bandeiras.create')}
-          className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
-        >
-          <TiPlus />
-          Criar Uma Nova Bandeira
-        </Link>
+        {hasExistGroup ? (
+          <Link
+            href={route('bandeiras.create')}
+            className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
+          >
+            <TiPlus />
+            Criar Uma Nova Bandeira
+          </Link>
+        ) : (
+          <div className="flex justify-center items-center gap-2">
+            <p>Para criar uma bandeira é necessário ter um</p>
+            <a
+              href="/grupos-economicos"
+              className="border border-white text-white p-2 flex items-center gap-2"
+            >
+              Grupo Econômico
+              <FaExternalLinkSquareAlt size={20} />
+            </a>
+          </div>
+        )}
 
         <div
           className="ag-theme-alpine mt-8"

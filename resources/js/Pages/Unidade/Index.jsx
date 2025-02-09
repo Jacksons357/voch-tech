@@ -7,12 +7,15 @@ import { useMemo, useState } from 'react'
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import { FaEdit } from 'react-icons/fa'
 import { FaTrash } from 'react-icons/fa'
+import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
-export default function Index({ unidades }) {
+export default function Index({ unidades, bandeiras }) {
+  const hasExistBandeira = bandeiras.some(item => item.nome)
+
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -132,13 +135,26 @@ export default function Index({ unidades }) {
       <Head title="Unidade" />
 
       <div className="p-12">
-        <Link
-          href={route('unidades.create')}
-          className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
-        >
-          <TiPlus />
-          Criar Uma Nova Unidade
-        </Link>
+        {hasExistBandeira ? (
+          <Link
+            href={route('unidades.create')}
+            className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
+          >
+            <TiPlus />
+            Criar Uma Nova Unidade
+          </Link>
+        ) : (
+          <div className="flex justify-center items-center gap-2">
+            <p>Para criar uma unidade é necessário ter uma</p>
+            <a
+              href="/bandeiras"
+              className="border border-white text-white p-2 flex items-center gap-2"
+            >
+              Bandeira
+              <FaExternalLinkSquareAlt size={20} />
+            </a>
+          </div>
+        )}
 
         <div
           className="ag-theme-alpine mt-8"

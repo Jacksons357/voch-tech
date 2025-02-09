@@ -7,12 +7,16 @@ import { useMemo, useState } from 'react'
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import { FaEdit } from 'react-icons/fa'
 import { FaTrash } from 'react-icons/fa'
+import { FaExternalLinkSquareAlt } from 'react-icons/fa'
+import { FaDownload } from 'react-icons/fa'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
-export default function Index({ colaboradores }) {
+export default function Index({ colaboradores, unidades }) {
+  const hasExistUnidade = unidades.some(item => item.id)
+
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -126,21 +130,37 @@ export default function Index({ colaboradores }) {
 
       <div className="p-12">
         <div className="flex justify-between px-5">
-          <Link
-            href={route('colaboradores.create')}
-            className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
-          >
-            <TiPlus />
-            Criar Um Novo Colaborador
-          </Link>
+          {hasExistUnidade ? (
+            <>
+              <Link
+                href={route('colaboradores.create')}
+                className="bg-orange-400 text-white p-3 rounded-sm flex w-max items-center gap-2"
+              >
+                <TiPlus />
+                Criar Um Novo Colaborador
+              </Link>
 
-          <a
-            href="colaboradores/export"
-            className="flex items-center border border-white text-white px-5"
-            target="__blank"
-          >
-            Gerar Relatório
-          </a>
+              <a
+                href="colaboradores/export"
+                className="flex items-center border border-white text-white px-5 gap-2"
+                target="__blank"
+              >
+                Gerar Relatório
+                <FaDownload />
+              </a>
+            </>
+          ) : (
+            <div className="flex justify-center items-center gap-2">
+              <p>Para criar um colaborador é necessário ter uma</p>
+              <a
+                href="/unidades"
+                className="border border-white text-white p-2 flex items-center gap-2"
+              >
+                Unidade
+                <FaExternalLinkSquareAlt size={20} />
+              </a>
+            </div>
+          )}
         </div>
 
         <div
