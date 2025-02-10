@@ -25,7 +25,7 @@ trait Auditoria
     protected function saveAudit($action)
     {
         Audit::create([
-            'model' => get_class($this),
+            'model' => class_basename($this),
             'model_id' => $this->id,
             'acoes' => $action,
             'dados' => json_encode($this->attributesToArray()),

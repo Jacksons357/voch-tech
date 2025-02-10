@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react'
 import TextInput from '@/Components/TextInput'
+import InputMask from 'react-input-mask'
 
 export default function Create({ bandeiras }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -21,6 +22,20 @@ export default function Create({ bandeiras }) {
       },
       onFinish: () => reset('nome'),
     })
+  }
+
+  const formatCNPJ = value => {
+    return value
+      .replace(/\D/g, '') // Remove tudo que não for número
+      .replace(/^(\d{2})(\d)/, '$1.$2')
+      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/\.(\d{3})(\d)/, '.$1/$2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+      .slice(0, 18) // Limita ao tamanho do CNPJ
+  }
+
+  const handleCNPJChange = e => {
+    setData('cnpj', formatCNPJ(e.target.value))
   }
 
   return (
@@ -61,13 +76,16 @@ export default function Create({ bandeiras }) {
 
             <div className="flex flex-col">
               <label htmlFor="cnpj">CNPJ</label>
+
               <TextInput
                 id="cnpj"
-                value={data.cnpj}
-                onChange={e => setData('cnpj', e.target.value)}
                 required
+                value={data.cnpj}
+                onChange={handleCNPJChange}
+                // onChange={e => setData('cnpj', formatCnpj(e.target.value))}
                 className="focus:border-orange-400 focus:border-2 focus:ring-0"
               />
+
               {errors.cnpj && <div className="text-red-500">{errors.cnpj}</div>}
             </div>
 

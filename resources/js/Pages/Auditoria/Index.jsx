@@ -1,7 +1,103 @@
-export default function Index({ logs }) {
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head, Link, router } from '@inertiajs/react'
+import dayjs from 'dayjs'
+import { AgGridReact } from 'ag-grid-react'
+import { useMemo, useState } from 'react'
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
+import { FaExternalLinkSquareAlt } from 'react-icons/fa'
+
+ModuleRegistry.registerModules([AllCommunityModule])
+
+export default function Index({ logs, users }) {
+  const [rowData] = useState(
+    logs.map(log => {
+      const user = users.find(user => user.id === log.user_id)
+
+      return {
+        acoes: log.acoes,
+        user: user ? user.name : 'Usuario não encontrado',
+        model: log.model,
+        updated_at: dayjs(log.dados.updated_at).format('DD/MM/YYYY'),
+        dataCriacao: dayjs(log.created_at).format('DD/MM/YYYY'),
+        id: log.id,
+      }
+    })
+  )
+
+  const columnDefs = useMemo(
+    () => [
+      {
+        headerName: 'Data',
+        field: 'dataCriacao',
+        filter: 'agDateColumnFilter',
+      },
+      {
+        headerName: 'Entidade',
+        field: 'model',
+      },
+      {
+        headerName: 'Usuario',
+        field: 'user',
+      },
+      {
+        headerName: 'Ação',
+        field: 'acoes',
+        cellRenderer: params => {
+          const traducao = {
+            create: 'Criação',
+            update: 'Atualizado',
+            delete: 'Deletado',
+          }
+
+          const styles = {
+            create: 'bg-green-500 px-2 text-sm font-semibold rounded-xl',
+            update: 'bg-yellow-500 px-2 text-sm font-semibold rounded-xl',
+            delete: 'bg-red-500 px-2 text-sm font-semibold rounded-xl',
+          }
+
+          const acionandoTraducao = traducao[params.value] || 'Desconhecido'
+          const acoesEstilos = styles[params.value] || 'text-gray-600'
+
+          return <span className={acoesEstilos}>{acionandoTraducao}</span>
+        },
+      },
+      {
+        headerName: 'Data de atualização',
+        field: 'updated_at',
+      },
+    ],
+    []
+  )
+
   return (
-    <div>
-      <pre>{logs}</pre>
-    </div>
+    <AuthenticatedLayout
+      header={
+        <h2 className="text-xl font-semibold leading-tight text-gray-800">
+          Auditoria
+        </h2>
+      }
+    >
+      <Head title="Auditoria" />
+
+      <div className="p-12">
+        <div
+          className="ag-theme-alpine mt-8"
+          style={{ height: 500, width: '100%' }}
+        >
+          <AgGridReact
+            rowData={rowData}
+            columnDefs={columnDefs}
+            defaultColDef={{
+              sortable: false,
+              filter: true,
+              floatingFilter: true,
+            }}
+            pagination={true}
+            paginationPageSize={10}
+            paginationPageSizeSelector={[10, 25, 50]}
+          />
+        </div>
+      </div>
+    </AuthenticatedLayout>
   )
 }

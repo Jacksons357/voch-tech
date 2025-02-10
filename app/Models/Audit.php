@@ -10,5 +10,5 @@ class Audit extends Model
 
     protected $fillable = ['model', 'model_id', 'acoes', 'dados', 'user_id'];
 
-    public $timestamps = false;
+    // public $timestamps = false;
 }

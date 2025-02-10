@@ -23,6 +23,19 @@ export default function Create({ unidades }) {
     })
   }
 
+  const formatCPF = value => {
+    return value
+      .replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4')
+      .slice(0, 14)
+  }
+
+  const handleCPFChange = e => {
+    setData('cpf', formatCPF(e.target.value))
+  }
+
   return (
     <div className="h-screen flex justify-center items-center bg-zinc-400">
       <Head title="Criar Colaborador" />
@@ -64,7 +77,7 @@ export default function Create({ unidades }) {
               <TextInput
                 id="cpf"
                 value={data.cpf}
-                onChange={e => setData('cpf', e.target.value)}
+                onChange={handleCPFChange}
                 required
                 className="focus:border-orange-400 focus:border-2 focus:ring-0"
               />
