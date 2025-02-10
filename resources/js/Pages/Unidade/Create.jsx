@@ -1,6 +1,5 @@
 import { Head, useForm } from '@inertiajs/react'
 import TextInput from '@/Components/TextInput'
-import InputMask from 'react-input-mask'
 
 export default function Create({ bandeiras }) {
   const { data, setData, post, processing, errors, reset } = useForm({
