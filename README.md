@@ -84,9 +84,9 @@ Certifique-se de ter as seguintes dependências instaladas em sua máquina:
    ./vendor/bin/sail artisan migrate
    ```
 
-7. **Instalar as Dependências do Node**
+7. **Instalar as dependências do React**
 
-   Instale as dependências do Node com o comando:
+   Dentro da pasta do projeto React instale as dependências com o comando:
 
    ```bash
    npm install
