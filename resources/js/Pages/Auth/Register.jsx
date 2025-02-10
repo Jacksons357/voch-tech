@@ -23,11 +23,11 @@ export default function Register() {
 
   return (
     <GuestLayout>
-      <Head title="Register" />
+      <Head title="Cadastrar" />
 
       <form onSubmit={submit}>
         <div>
-          <InputLabel htmlFor="name" value="Name" />
+          <InputLabel htmlFor="name" value="Nome" />
 
           <TextInput
             id="name"
@@ -61,7 +61,7 @@ export default function Register() {
         </div>
 
         <div className="mt-4">
-          <InputLabel htmlFor="password" value="Password" />
+          <InputLabel htmlFor="password" value="Senha" />
 
           <TextInput
             id="password"
@@ -80,7 +80,7 @@ export default function Register() {
         <div className="mt-4">
           <InputLabel
             htmlFor="password_confirmation"
-            value="Confirm Password"
+            value="Confirme a Senha"
           />
 
           <TextInput
@@ -101,7 +101,7 @@ export default function Register() {
           className="flex justify-center w-full mt-5 bg-orange-400 hover:bg-orange-500"
           disabled={processing}
         >
-          Register
+          Cadastrar
         </PrimaryButton>
 
         <div className="mt-4 flex items-center justify-end">

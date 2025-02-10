@@ -91,14 +91,14 @@ export default function Login({ status, canResetPassword }) {
             Não sou cadastrado
           </Link>
 
-          {canResetPassword && (
+          {/* {canResetPassword && (
             <Link
               href={route('password.request')}
               className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
             >
               Esqueceu a senha?
             </Link>
-          )}
+          )} */}
         </div>
       </form>
     </GuestLayout>
