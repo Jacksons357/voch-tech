@@ -62,7 +62,7 @@ Certifique-se de ter as seguintes dependências instaladas em sua máquina:
 
 4. **Instalar as Dependências do Laravel**
 
-   Use o comando abaixo para inicializar os contêineres:
+   Execute o comando para instalar as dependências com o Composer:
 
    ```bash
    ./vendor/bin/sail composer install
