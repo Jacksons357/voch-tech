@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Auditoria;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Colaborador extends Model
 {
+    use Auditoria;
     use HasFactory;
 
     protected $table = 'colaboradores';

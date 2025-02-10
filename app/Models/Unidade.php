@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Auditoria;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Unidade extends Model
 {
+    use Auditoria;
     use HasFactory;
 
     protected $table = 'unidades';

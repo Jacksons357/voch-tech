@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -107,5 +108,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/colaboradores/export', [ColaboradorController::class, 'export'])
       ->name('colaboradores.export');
+
+    Route::get('/audit-logs', [AuditoriaController::class, 'index'])
+      ->name('audit.logs');
   });
 });

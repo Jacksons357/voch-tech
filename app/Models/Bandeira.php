@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Auditoria;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bandeira extends Model
 {
+    use Auditoria;
     use HasFactory;
 
     protected $table = 'bandeiras';
