@@ -52,20 +52,20 @@ Certifique-se de ter as seguintes dependências instaladas em sua máquina:
    DB_PASSWORD=admin
    ```
 
-3. **Inicializar os Contêineres com Laravel Sail**
+3. **Instale Laravel Sail e suas dependencias:**
+
+   Use o comando abaixo para instalar:
+
+   ```bash
+   composer require laravel/sail --dev
+   ```
+
+4. **Inicializar os Contêineres com Laravel Sail**
 
    Use o comando abaixo para inicializar os contêineres:
 
    ```bash
    ./vendor/bin/sail up -d
-   ```
-
-4. **Instalar as Dependências do Laravel**
-
-   Execute o comando para instalar as dependências com o Composer:
-
-   ```bash
-   ./vendor/bin/sail composer install
    ```
 
 5. **Gerar a Key da Aplicação**
