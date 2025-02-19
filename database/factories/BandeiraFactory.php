@@ -21,8 +21,16 @@ class BandeiraFactory extends Factory
     {
         return [
             'nome' => 'american express',
-            'grupo_economico_id' => GrupoEconomico::all()->random()->id,
+            // 'grupo_economico_id' => GrupoEconomico::all()->random()->id,
             'user_id' => User::all()->random()->id
         ];
+    }
+
+    public function configure()
+    {
+        return $this->state(function (array $attributes) {
+            $grupoEconomico = GrupoEconomico::factory()->create();
+            return ['grupo_economico_id' => $grupoEconomico->id];
+        });
     }
 }

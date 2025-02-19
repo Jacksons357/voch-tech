@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bandeira;
 use App\Models\Unidade;
+use App\Rules\Cnpj;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -51,7 +52,7 @@ class UnidadeController extends Controller
         $validatedData = $request->validate([
             'nome_fantasia' => 'required|string|max:255',
             'razao_social' => 'required|string|max:255',
-            'cnpj' => 'required|string|max:255',
+            'cnpj' => ['required', 'string', new Cnpj],
             'bandeira_id' => 'required|exists:bandeiras,id',
         ]);
         try {
@@ -87,7 +88,7 @@ class UnidadeController extends Controller
             'bandeira_id' => 'required|exists:bandeiras,id',
             'razao_social' => 'required|string|max:255',
             'nome_fantasia' => 'required|string|max:255',
-            'cnpj' => 'required|string|max:255',
+            'cnpj' => ['required', 'string', new Cnpj],
         ]);
 
         $unidade = Unidade::findOrFail($id);
