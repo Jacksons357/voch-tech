@@ -8,11 +8,13 @@ import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import { FaEdit } from 'react-icons/fa'
 import { FaTrash } from 'react-icons/fa'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
 export default function Index({ bandeiras, grupoEconomico }) {
   const hasExistGroup = grupoEconomico.some(item => item.nome)
+  const hasExistBandeira = bandeiras.some(item => item.nome)
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
@@ -134,7 +136,7 @@ export default function Index({ bandeiras, grupoEconomico }) {
             Criar Uma Nova Bandeira
           </Link>
         ) : (
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex items-center pl-5 gap-2">
             <p>Para criar uma bandeira é necessário ter um</p>
             <a
               href="/grupos-economicos"
@@ -150,18 +152,26 @@ export default function Index({ bandeiras, grupoEconomico }) {
           className="ag-theme-alpine mt-8"
           style={{ height: 500, width: '100%' }}
         >
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={columnDefs}
-            defaultColDef={{
-              sortable: false,
-              filter: true,
-              floatingFilter: true,
-            }}
-            pagination={true}
-            paginationPageSize={10}
-            paginationPageSizeSelector={[10, 25, 50]}
-          />
+          {hasExistBandeira ? (
+            <AgGridReact
+              rowData={rowData}
+              columnDefs={columnDefs}
+              defaultColDef={{
+                sortable: false,
+                filter: true,
+                floatingFilter: true,
+              }}
+              pagination={true}
+              paginationPageSize={10}
+              paginationPageSizeSelector={[10, 25, 50]}
+            />
+          ) : (
+            <div className="flex justify-center mt-20 text-white flex-col items-center gap-2">
+              <h1 className="text-2xl">Nenhuma bandeira foi encontrada</h1>
+              <MdOutlineErrorOutline size={100} />
+              <p className="text-sm">Crie para exibir.</p>
+            </div>
+          )}
         </div>
 
         {showDeleteModal && (

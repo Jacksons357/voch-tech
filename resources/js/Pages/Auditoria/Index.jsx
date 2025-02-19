@@ -44,15 +44,18 @@ export default function Index({ logs, users }) {
         field: 'acoes',
         cellRenderer: params => {
           const traducao = {
-            create: 'Criação',
+            create: 'Criado',
             update: 'Atualizado',
             delete: 'Deletado',
           }
 
           const styles = {
-            create: 'bg-green-500 px-2 text-sm font-semibold rounded-xl',
-            update: 'bg-yellow-500 px-2 text-sm font-semibold rounded-xl',
-            delete: 'bg-red-500 px-2 text-sm font-semibold rounded-xl',
+            create:
+              'border border-green-500 bg-green-200 px-4 py-2 text-sm font-semibold rounded-sm text-green-700',
+            update:
+              'border border-yellow-500 bg-yellow-200 px-4 py-2 text-sm font-semibold rounded-sm text-yellow-700',
+            delete:
+              'border border-red-500 bg-red-200 px-4 py-2 text-sm font-semibold rounded-sm text-red-700',
           }
 
           const acionandoTraducao = traducao[params.value] || 'Desconhecido'

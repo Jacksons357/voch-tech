@@ -12,6 +12,7 @@ import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 ModuleRegistry.registerModules([AllCommunityModule])
 
 import 'ag-grid-community/styles/ag-theme-alpine.css'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 export default function Index({ unidades, bandeiras }) {
   const hasExistBandeira = bandeiras.some(item => item.nome)
@@ -144,7 +145,7 @@ export default function Index({ unidades, bandeiras }) {
             Criar Uma Nova Unidade
           </Link>
         ) : (
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex items-center pl-5 gap-2">
             <p>Para criar uma unidade é necessário ter uma</p>
             <a
               href="/bandeiras"
@@ -160,18 +161,26 @@ export default function Index({ unidades, bandeiras }) {
           className="ag-theme-alpine mt-8"
           style={{ height: 400, width: '100%' }}
         >
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={columnDefs}
-            defaultColDef={{
-              sortable: false,
-              filter: true,
-              floatingFilter: true,
-            }}
-            pagination={true}
-            paginationPageSize={10}
-            paginationPageSizeSelector={[10, 25, 50]}
-          />
+          {hasExistBandeira ? (
+            <AgGridReact
+              rowData={rowData}
+              columnDefs={columnDefs}
+              defaultColDef={{
+                sortable: false,
+                filter: true,
+                floatingFilter: true,
+              }}
+              pagination={true}
+              paginationPageSize={10}
+              paginationPageSizeSelector={[10, 25, 50]}
+            />
+          ) : (
+            <div className="flex justify-center mt-20 text-white flex-col items-center gap-2">
+              <h1 className="text-2xl">Nenhuma unidade foi encontrada</h1>
+              <MdOutlineErrorOutline size={100} />
+              <p className="text-sm">Crie para exibir.</p>
+            </div>
+          )}
         </div>
 
         {showDeleteModal && (

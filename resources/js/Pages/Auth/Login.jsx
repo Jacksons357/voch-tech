@@ -48,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
         </div>
 
         <div className="mt-4">
-          <InputLabel htmlFor="password" value="Password" />
+          <InputLabel htmlFor="password" value="Senha" />
 
           <TextInput
             id="password"
@@ -72,7 +72,7 @@ export default function Login({ status, canResetPassword }) {
               id="checkbox"
               className="text-orange-400 focus:outline-orange-400 "
             />
-            <span className="ms-2 text-sm text-gray-600">Remember me</span>
+            <span className="ms-2 text-sm text-gray-600">Lembrar de mim</span>
           </label>
         </div>
 

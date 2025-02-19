@@ -13,9 +13,11 @@ import { FaDownload } from 'react-icons/fa'
 ModuleRegistry.registerModules([AllCommunityModule])
 
 import 'ag-grid-community/styles/ag-theme-alpine.css'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 export default function Index({ colaboradores, unidades }) {
   const hasExistUnidade = unidades.some(item => item.id)
+  const hasExistColaborador = colaboradores.some(item => item.nome)
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
@@ -167,18 +169,26 @@ export default function Index({ colaboradores, unidades }) {
           className="ag-theme-alpine mt-8"
           style={{ height: 400, width: '100%' }}
         >
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={columnDefs}
-            defaultColDef={{
-              sortable: false,
-              filter: true,
-              floatingFilter: true,
-            }}
-            pagination={true}
-            paginationPageSize={10}
-            paginationPageSizeSelector={[10, 25, 50]}
-          />
+          {hasExistColaborador ? (
+            <AgGridReact
+              rowData={rowData}
+              columnDefs={columnDefs}
+              defaultColDef={{
+                sortable: false,
+                filter: true,
+                floatingFilter: true,
+              }}
+              pagination={true}
+              paginationPageSize={10}
+              paginationPageSizeSelector={[10, 25, 50]}
+            />
+          ) : (
+            <div className="flex justify-center mt-20 text-white flex-col items-center gap-2">
+              <h1 className="text-2xl">Nenhum colaborador encontrado</h1>
+              <MdOutlineErrorOutline size={100} />
+              <p className="text-sm">Crie para exibir.</p>
+            </div>
+          )}
         </div>
 
         {showDeleteModal && (

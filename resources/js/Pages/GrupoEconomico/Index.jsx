@@ -7,12 +7,15 @@ import { useMemo, useState } from 'react'
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import { FaEdit } from 'react-icons/fa'
 import { FaTrash } from 'react-icons/fa'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
 export default function Index({ gruposEconomicos }) {
+  const hasExistGruposEconomicos = gruposEconomicos.some(item => item.nome)
+
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -126,23 +129,31 @@ export default function Index({ gruposEconomicos }) {
           Criar Novo Grupo Econômico
         </Link>
 
-        <div
-          className="ag-theme-alpine mt-8"
-          style={{ height: 400, width: '100%' }}
-        >
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={columnDefs}
-            defaultColDef={{
-              sortable: false,
-              filter: true,
-              floatingFilter: true,
-            }}
-            pagination={true}
-            paginationPageSize={10}
-            paginationPageSizeSelector={[10, 25, 50]}
-          />
-        </div>
+        {hasExistGruposEconomicos ? (
+          <div
+            className="ag-theme-alpine mt-8"
+            style={{ height: 400, width: '100%' }}
+          >
+            <AgGridReact
+              rowData={rowData}
+              columnDefs={columnDefs}
+              defaultColDef={{
+                sortable: false,
+                filter: true,
+                floatingFilter: true,
+              }}
+              pagination={true}
+              paginationPageSize={10}
+              paginationPageSizeSelector={[10, 25, 50]}
+            />
+          </div>
+        ) : (
+          <div className="flex justify-center mt-20 text-white flex-col items-center gap-2">
+            <h1 className="text-2xl">Nenhum grupo encontrado</h1>
+            <MdOutlineErrorOutline size={100} />
+            <p className="text-sm">Crie para exibir.</p>
+          </div>
+        )}
 
         {showDeleteModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
